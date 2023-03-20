@@ -15,28 +15,25 @@ RUN apt-get clean && apt-get update \
     && apt-get clean
 
 ###
-# terasort
-FROM java-prerequisites as terasort-builder
+# SQL-Benchmarks
+FROM java-prerequisites as sql-builder
 
-RUN git clone https://github.com/pspoerri/spark-terasort \
-    && cd spark-terasort \
-    && git checkout add_timings \
-    && sed -i 's/3\.0\.1/3\.3\.1/g' pom.xml \
-    && sed -i 's/2\.12\.10/2\.12\.15/g' pom.xml \
+RUN git clone https://github.com/zrlio/sql-benchmarks \
+    && cd sql-benchmarks \
     && mvn package
 
-# Terasort is now in /spark-terasort/target/spark-terasort-1.2-SNAPSHOT.jar
+# Result /sql-benchmarks/target/sql-benchmarks-1.0.jar
 
 ### 
 # GEDS-HDFS
 FROM java-prerequisites as geds-hdfs-builder
 
 ARG GEDS_VERSION=0.7.12
-RUN wget "https://github.com/IBM/GEDS/releases/download/v${GEDS_VERSION}/geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" \
+RUN wget -nv "https://github.com/IBM/GEDS/releases/download/v${GEDS_VERSION}/geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" \
     && tar xf "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" -C /usr/local/ \
     && rm "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz"
 
-RUN wget https://repo.scala-sbt.org/scalasbt/debian/sbt-1.8.2.deb \
+RUN wget -nv https://repo.scala-sbt.org/scalasbt/debian/sbt-1.8.2.deb \
     && dpkg -i sbt-1.8.2.deb \
     && rm sbt-1.8.2.deb
 
@@ -70,8 +67,8 @@ RUN cd "${SPARK_HOME}/jars/" \
     && wget -nv https://github.com/IBM/spark-s3-shuffle/releases/download/v0.6.2/spark-s3-shuffle_2.12-3.3.1_0.6.2.jar \
     && chmod +r *
 
-# TeraSort
-COPY --from=terasort-builder /spark-terasort/target/spark-terasort-1.2-SNAPSHOT.jar "${SPARK_HOME}/jars/"
+# SQL
+COPY --from=sql-builder /sql-benchmarks/target/sql-benchmarks-1.0.jar "${SPARK_HOME}/jars/"
 
 # GEDS
 COPY --from=geds-hdfs-builder /usr/local/geds "/usr/local/"
