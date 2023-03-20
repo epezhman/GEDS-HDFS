@@ -57,7 +57,7 @@ export SPARK_HADOOP_S3A_CONFIG=(
 
 SPARK_HADOOP_GEDS_CONFIG=(
   --conf spark.hadoop.fs.geds.impl="com.ibm.geds.hdfs.GEDSHadoopFileSystem"
-  --conf spark.hadoop.fs.geds.metadataserver="geds-service:4381"
+  --conf spark.hadoop.fs.geds.metadataserver="10.40.1.4:50003"
   --conf spark.hadoop.fs.geds.blocksize=$((32*1024*1024))
   --conf spark.hadoop.fs.geds.path=/geds
   --conf spark.hadoop.fs.geds.${TERASORT_BUCKET}.accessKey="${S3A_ACCESS_KEY}"
