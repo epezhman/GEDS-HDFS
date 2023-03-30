@@ -34,5 +34,5 @@ spec:
   ports:
   - name: geds-service
     protocol: TCP
-    port: 4381
+    port: 50005
     targetPort: geds-service

@@ -17,7 +17,7 @@ import static java.lang.Math.min;
 public class GEDSInputStream extends FSInputStream {
 
     private final GEDSFile file;
-    private final long fileSize;
+    private final long lfileSize;
 
     public GEDSInputStream(GEDSFile file) {
         this.file = file;
