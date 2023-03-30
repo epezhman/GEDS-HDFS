@@ -14,6 +14,9 @@ public class GEDSInstance {
     public synchronized static GEDS initialize(Configuration conf) {
         if (instance == null) {
             String metadataServer = conf.get(Constants.METADATA_SERVER, "localhost:" + GEDS.getDefaultMetdataServerPort());
+                              System.out.println("metadataServer Ip hereeeee");
+
+                  System.out.println(metadataServer);
             String path = conf.get(Constants.PATH, "/tmp/GEDSHadoop");
             int port = conf.getInt(Constants.PORT, 0); // 0 indicates use GEDS default.
             long blockSize = conf.getLong(Constants.BLOCKSIZE, Constants.DEFAULT_BLOCKSIZE); // 0 indicates use GEDS default.
