@@ -43,7 +43,7 @@ RUN wget https://repo.scala-sbt.org/scalasbt/debian/sbt-1.8.2.deb \
     && rm sbt-1.8.2.deb
 
 ENV GEDS_INSTALL=/usr/local/geds
-RUN git clone https://github.com/IBM/GEDS-HDFS \
+RUN git clone https://github.com/epezhman/GEDS-HDFS \
     && cd GEDS-HDFS \
     && sbt package
 # Output /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.0_SNAPSHOT.jar
