@@ -68,8 +68,8 @@ public class GEDSHadoopFileSystem extends FileSystem {
     @Override
     public FSDataInputStream open(Path f, int bufferSize) throws IOException {
         GEDSFile file = geds.open(bucket, computeGEDSPath(f));
-        println("we are here in the hadoop");
-        println(bucket);
+        System.out.println("we are here in the hadoop");
+        System.out.println(bucket);
         return new FSDataInputStream(new BufferedFSInputStream(new GEDSInputStream(file), bufferSize));
     }
 
