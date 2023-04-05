@@ -42,6 +42,15 @@ public class GEDSHadoopFileSystem extends FileSystem {
         gedsConfig = GEDSInstance.getConfig(conf);
         geds = GEDSInstance.initialize(bucket, conf);
 
+        // creating the PubSub subscription stream for the GEDS client
+        System.out.println("creating new PubSub subscription stream.");
+        boolean status = geds.subscribeStreamWithThread();
+        if (status) {
+            System.out.println("PubSub subscription stream created successfully.");
+        } else {
+            System.out.println("PubSub subscription stream created successfully.");
+        }
+
         blockSize = gedsConfig.getLong(Constants.CACHE_BLOCK_SIZE);
         workingDirectory = new Path("/");
     }
@@ -68,8 +77,6 @@ public class GEDSHadoopFileSystem extends FileSystem {
     @Override
     public FSDataInputStream open(Path f, int bufferSize) throws IOException {
         GEDSFile file = geds.open(bucket, computeGEDSPath(f));
-        System.out.println("we are here in the hadoop");
-        System.out.println(bucket);
         return new FSDataInputStream(new BufferedFSInputStream(new GEDSInputStream(file), bufferSize));
     }
 
