@@ -52,9 +52,9 @@ public class GEDSHadoopFileSystem extends FileSystem {
 
             // Subscribing for a bucket.
             if (geds.subscribe(bucket, "", 1)) {
-                System.out.println("Created a subscription for bucket:" , bucket);
+                System.out.println("Created a subscription for bucket:" + bucket);
             } else {
-                System.out.println("Could not create a subscription for the the bucket: ", bucket);
+                System.out.println("Could not create a subscription for the the bucket: " + bucket);
             }
         }
 
