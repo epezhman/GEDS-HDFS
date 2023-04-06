@@ -91,7 +91,7 @@ public class GEDSHadoopFileSystem extends FileSystem {
 
     @Override
     public FSDataOutputStream create(Path f, FsPermission permission, boolean overwrite, int bufferSize,
-            short replication, long blockSize, Progressable progress) throws IOException {
+                                     short replication, long blockSize, Progressable progress) throws IOException {
         GEDSFile file = geds.create(bucket, computeGEDSPath(f));
         return new FSDataOutputStream(new BufferedOutputStream(new GEDSOutputStream(file)), statistics);
     }
@@ -123,7 +123,12 @@ public class GEDSHadoopFileSystem extends FileSystem {
         if (!path.endsWith("/")) {
             path = path + "/";
         }
-        GEDSFileStatus[] st = geds.listAsFolder(bucket, path);
+        GEDSFileStatus[] st;
+        if (geds.getIsPubSubEnabled()) {
+            st = geds.listAsFolderFromCacheOnly(bucket, path);
+        } else {
+            st = geds.listAsFolder(bucket, path);
+        }
         FileStatus[] response = new FileStatus[st.length];
         for (int i = 0; i < st.length; i++) {
             GEDSFileStatus s = st[i];
@@ -155,3 +160,4 @@ public class GEDSHadoopFileSystem extends FileSystem {
                 new Path(st.key).makeQualified(getUri(), workingDirectory));
     }
 }
+
