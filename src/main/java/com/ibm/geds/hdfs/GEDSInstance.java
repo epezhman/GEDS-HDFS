@@ -53,7 +53,7 @@ public class GEDSInstance {
         return instanceConfig;
     }
 
-    public synchronized static GEDS initialize(String bucket, Configuration conf) {
+    public synchronized static GEDS initialize(String bucket, Configuration conf) throws IOException {
         GEDS geds = initialize(conf);
 
         String bucketAccessKey = conf.get(Constants.GEDS_PREFIX + bucket + ".accessKey");
