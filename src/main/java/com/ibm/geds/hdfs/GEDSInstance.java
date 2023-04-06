@@ -10,6 +10,8 @@ import com.ibm.geds.GEDSConfig;
 
 import org.apache.hadoop.conf.Configuration;
 
+import java.io.IOException;
+
 public class GEDSInstance {
     private static GEDS instance;
     private static GEDSConfig instanceConfig;
