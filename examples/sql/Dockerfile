@@ -28,20 +28,22 @@ RUN git clone https://github.com/zrlio/sql-benchmarks \
 # GEDS-HDFS
 FROM java-prerequisites as geds-hdfs-builder
 
-ARG GEDS_VERSION=0.7.13
-RUN wget -nv "https://github.com/IBM/GEDS/releases/download/v${GEDS_VERSION}/geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" \
-    && tar xf "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" -C /usr/local/ \
-    && rm "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz"
+#ARG GEDS_VERSION=0.7.13
+#RUN wget -nv "https://github.com/IBM/GEDS/releases/download/v${GEDS_VERSION}/geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" \
+#    && tar xf "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz" -C /usr/local/ \
+#    && rm "geds-x86_64-debian11.5-${GEDS_VERSION}-Release.tar.gz"
+
+COPY --from=zac32.zurich.ibm.com/pezhman.nasirifard/geds-build_debian11.5:latest /usr/local/opt/geds /usr/local/geds
 
 RUN wget -nv https://repo.scala-sbt.org/scalasbt/debian/sbt-1.8.2.deb \
     && dpkg -i sbt-1.8.2.deb \
     && rm sbt-1.8.2.deb
 
 ENV GEDS_INSTALL=/usr/local/geds
-RUN git clone https://github.com/IBM/GEDS-HDFS \
+RUN git clone https://github.com/epezhman/GEDS-HDFS \
     && cd GEDS-HDFS \
     && sbt package
-# Output /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.0_SNAPSHOT.jar
+# Output /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.1_SNAPSHOT.jar
 
 ###
 # Spark Container
@@ -75,7 +77,7 @@ COPY --from=geds-hdfs-builder /usr/local/geds "/usr/local/"
 COPY --from=geds-hdfs-builder /usr/local/geds/java/geds.jar "${SPARK_HOME}/jars/"
 
 # GEDS-HDFS
-COPY --from=geds-hdfs-builder /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.0_SNAPSHOT.jar "${SPARK_HOME}/jars/"
+COPY --from=geds-hdfs-builder /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.1_SNAPSHOT.jar "${SPARK_HOME}/jars/"
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/java
 

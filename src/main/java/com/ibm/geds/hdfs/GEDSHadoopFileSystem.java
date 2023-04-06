@@ -42,14 +42,7 @@ public class GEDSHadoopFileSystem extends FileSystem {
         gedsConfig = GEDSInstance.getConfig(conf);
         geds = GEDSInstance.initialize(bucket, conf);
 
-        if (conf.get(Constants.GEDS_PREFIX + Constants.PUBSUB_ENABLED, "false").equalsIgnoreCase("true")) {
-            // creating the PubSub subscription stream for the GEDS client.
-            if (geds.subscribeStreamWithThread()) {
-                System.out.println("PubSub subscription stream created successfully.");
-            } else {
-                System.out.println("PubSub subscription could not be created.");
-            }
-
+        if (geds.getIsPubSubEnabled()) {
             // Subscribing for a bucket.
             if (geds.subscribe(bucket, "", 1)) {
                 System.out.println("Created a subscription for bucket:" + bucket);

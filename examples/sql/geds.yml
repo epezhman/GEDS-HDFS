@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: geds-serv-sql
+  name: geds-serv-sql
+spec:
+  containers:
+  - name: metadataserver
+    image: zac32.zurich.ibm.com/pezhman.nasirifard/spark-terasort:latest
+    imagePullPolicy: Always
+    command: ["/usr/local/bin/metadataserver"]
+    resources:
+      requests:
+        memory: "16G"
+        cpu: "4"
+      limits:
+        memory: "16G"
+        cpu: "4"
+    ports:
+      - containerPort: 4381
+        name: geds-serv-sql
+  imagePullSecrets:
+  - name: zac-registry
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: geds-serv-sql
+spec:
+  selector:
+    app.kubernetes.io/name: geds-serv-sql
+  ports:
+  - name: geds-serv-sql
+    protocol: TCP
+    port: 50005
+    targetPort: geds-serv-sql

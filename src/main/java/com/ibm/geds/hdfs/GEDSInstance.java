@@ -19,6 +19,9 @@ public class GEDSInstance {
             GEDSConfig gedsConfig = getConfig(conf);
             instance = new GEDS(gedsConfig);
         }
+        if (conf.get(Constants.GEDS_PREFIX + Constants.PUBSUB_ENABLED, "false").equalsIgnoreCase("true")) {
+            instance.setIsPubSubEnabled(true);
+        }
         return instance;
     }
 
@@ -66,6 +69,16 @@ public class GEDSInstance {
             throw new RuntimeException("Bucket " + bucket
                     + " has either an accessKey, secretKey or an endpoint registered. To map the bucket to S3 all variables need to be configured.");
         }
+
+        if (geds.getIsPubSubEnabled() {
+            // creating the PubSub subscription stream for the GEDS client.
+            if (geds.subscribeStreamWithThread()) {
+                System.out.println("PubSub subscription stream created successfully.");
+            } else {
+                System.out.println("PubSub subscription could not be created.");
+            }
+        }
+
         return geds;
     }
 }

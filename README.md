@@ -1,9 +1,8 @@
-
-
-
 # Hadoop Filesystem Implementation for GEDS
 
-This project implements the [Hadoop Fileystem API](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/filesystem/index.html) for GEDS.
+This project implements
+the [Hadoop Fileystem API](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/filesystem/index.html)
+for GEDS.
 
 ## Design
 
@@ -14,25 +13,31 @@ Apache Spark and Hadoop interact with GEDS in the following way:
 ## Building
 
 Make sure SBT is installed on the system. Install GEDS and then run the package script:
+
 ```bash
 export GEDS_INSTALL=$HOME/geds-install # GEDS install path
 sbt package
 ```
+
 The library will be located in `target/scala-2.12/`.
 
 ## Configuration
 
-Place the GEDS-HDFS plugin, `geds.jar` into the Java class path, and `libgeds_java.so` into the `LD_LIBRARY` path. GEDS can then be configured with the following variables:
+Place the GEDS-HDFS plugin, `geds.jar` into the Java class path, and `libgeds_java.so` into the `LD_LIBRARY` path. GEDS
+can then be configured with the following variables:
 
 - `fs.geds.impl`: `com.ibm.geds.hdfs.GEDSHadoopFileSystem` - **Required**
 - `fs.geds.metadataserver`: Ip or DNS of the metadata server - **Required**
 - `fs.geds.blocksize`: GEDS block size in bytes. Example: `33554432`
-- `fs.geds.path`: Local GEDS path for ephemeral data. A path that ends with `XXXXXX` will be randomized with `mktempd`. Default: `/tmp/GEDSHadoop`. - Optional
+- `fs.geds.path`: Local GEDS path for ephemeral data. A path that ends with `XXXXXX` will be randomized with `mktempd`.
+  Default: `/tmp/GEDSHadoop`. - Optional
 - `fs.geds.port`: Local port for the GEDS service. - Optional
 
-GEDS allows mapping individual buckets to S3. For each bucket, the following configuration variables can be passed to enable a S3 mapping.
+GEDS allows mapping individual buckets to S3. For each bucket, the following configuration variables can be passed to
+enable a S3 mapping.
+
 - `fs.geds.BUCKET_NAME.accessKey`: S3 Access key for `BUCKET_NAME`.
-- `fs.geds.BUCKET_NAME.secretKey`: S3 Secret key for `BUCKET_NAME`. 
+- `fs.geds.BUCKET_NAME.secretKey`: S3 Secret key for `BUCKET_NAME`.
 - `fs.geds.BUCKET_NAME.endpoint`: S3 Endpoint to use for `BUCKET_NAME`.
 
 ### Example Spark configuration
@@ -60,9 +65,11 @@ The Hadoop FileSystem constructor is called once per `hostname` in the filesyste
 - For `crail` this means, that the constructor for `CrailHDFS` is called once, since the Crail filesystem is based on
   the URL to the namenode. There is typically only one Crail namenode running.
   Crail filesystems are typically defined with `crail://namenode:port/`.
-- For `geds` we want to emulate the `s3a` model to keep the bucket configuration, but forward the calls to a single `GEDS` instance.
+- For `geds` we want to emulate the `s3a` model to keep the bucket configuration, but forward the calls to a
+  single `GEDS` instance.
   This allows us to add additional configuration (for example S3 mapping) for each bucket.
-  Each `GEDSHadoopFileSystem` instance will forward the calls to a `GEDS` singleton. The singleton also allows us to more
+  Each `GEDSHadoopFileSystem` instance will forward the calls to a `GEDS` singleton. The singleton also allows us to
+  more
   efficiently cache files locally.
 
 ### Folders
@@ -70,12 +77,15 @@ The Hadoop FileSystem constructor is called once per `hostname` in the filesyste
 Hadoop implements folders on Key/Value filesystems by placing an empty key with the name `_$folder$`.
 
 **Example**: A folder structure `Nase/Baer` would create the following keys on the key/value filesystem:
+
 - `Nase/_$folder$`
 - `Nase/Baer/_$folder$`
 
 ### Rename
 
-The Hadoop API specifies the following API for renaming paths ([source](https://github.com/apache/hadoop/blob/trunk/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/FileSystem.java#L1591-L1598)):
+The Hadoop API specifies the following API for renaming
+paths ([source](https://github.com/apache/hadoop/blob/trunk/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/FileSystem.java#L1591-L1598)):
+
 ```Java
   /**
    * Renames Path src to Path dst.
@@ -94,16 +104,18 @@ The Hadoop API specifies the following API for renaming paths ([source](https://
 
 Below is a list of projects that implement the Hadoop Filesystem which we can use as a reference.
 
-- **s3a://** [S3AFileSystem](https://github.com/apache/hadoop/blob/trunk/hadoop-tools/hadoop-aws/src/main/java/org/apache/hadoop/fs/s3a/S3AFileSystem.java)
+- **s3a://
+  ** [S3AFileSystem](https://github.com/apache/hadoop/blob/trunk/hadoop-tools/hadoop-aws/src/main/java/org/apache/hadoop/fs/s3a/S3AFileSystem.java)
 
-  Minimal config: 
+  Minimal config:
   ```
   --conf spark.hadoop.fs.s3a.access.key=Nase
   --conf spark.hadoop.fs.s3a.secret.key=Baer
   --conf spark.hadoop.fs.s3a.endpoint=http://endpoint/
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
   ```
-- **crail://** [CrailHDFS](https://github.com/craillabs/crail/blob/master/hdfs/src/main/java/org/apache/crail/hdfs/CrailHDFS.java)
+- **crail://
+  ** [CrailHDFS](https://github.com/craillabs/crail/blob/master/hdfs/src/main/java/org/apache/crail/hdfs/CrailHDFS.java)
 
   Minimal config:
   ```xml
@@ -120,11 +132,13 @@ Below is a list of projects that implement the Hadoop Filesystem which we can us
     <value>org.apache.crail.hdfs.CrailHDFS</value>
   </property>
   ```
-  
-  *Note*: Crail is special since it defines `fs.defaultFS` and uses `AbstractFileSystem` as a base implementation. For our use-case we want to model the `s3a`-approach:
-  
-  - We don't want to override `fs.defaultFS`
-  - `GEDSHadoopFileSystem` should inherit from `org.apache.hadoop.fs.FileSystem` directly
-- **https://** [AbstractHttpFileSystem](https://github.com/apache/hadoop/blob/trunk/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/http/AbstractHttpFileSystem.java)
+
+  *Note*: Crail is special since it defines `fs.defaultFS` and uses `AbstractFileSystem` as a base implementation. For
+  our use-case we want to model the `s3a`-approach:
+
+    - We don't want to override `fs.defaultFS`
+    - `GEDSHadoopFileSystem` should inherit from `org.apache.hadoop.fs.FileSystem` directly
+- **https://
+  ** [AbstractHttpFileSystem](https://github.com/apache/hadoop/blob/trunk/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/fs/http/AbstractHttpFileSystem.java)
 
   *Note*: This filesystem does not allow listing objects.
