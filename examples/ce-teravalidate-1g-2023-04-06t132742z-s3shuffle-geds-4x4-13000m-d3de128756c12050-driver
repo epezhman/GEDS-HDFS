@@ -1,0 +1,411 @@
+++ id -u
++ myuid=0
+++ id -g
++ mygid=0
++ set +e
+++ getent passwd 0
++ uidentry=root:x:0:0:root:/root:/bin/bash
++ set -e
++ '[' -z root:x:0:0:root:/root:/bin/bash ']'
++ '[' -z /usr/local/openjdk-11 ']'
++ SPARK_CLASSPATH=':/opt/spark/jars/*'
++ env
++ grep SPARK_JAVA_OPT_
++ sort -t_ -k4 -n
++ sed 's/[^=]*=\(.*\)/\1/g'
++ readarray -t SPARK_EXECUTOR_JAVA_OPTS
++ '[' -n '' ']'
++ '[' -z ']'
++ '[' -z ']'
++ '[' -n '' ']'
++ '[' -z ']'
++ '[' -z x ']'
++ SPARK_CLASSPATH='/opt/spark/conf::/opt/spark/jars/*'
++ case "$1" in
++ shift 1
++ CMD=("$SPARK_HOME/bin/spark-submit" --conf "spark.driver.bindAddress=$SPARK_DRIVER_BIND_ADDRESS" --deploy-mode client "$@")
++ exec /usr/bin/tini -s -- /opt/spark/bin/spark-submit --conf spark.driver.bindAddress=10.244.0.254 --deploy-mode client --properties-file /opt/spark/conf/spark.properties --class com.github.ehiggs.spark.terasort.TeraValidate local:///opt/spark/jars/spark-terasort-1.2-SNAPSHOT.jar s3a://pezhman-cloudstars/output/terasort/1g--2023-04-06T132742Z-s3shuffle-geds s3a://pezhman-cloudstars/output/terasort-validated/1g--2023-04-06T132742Z-s3shuffle-geds
+23/04/06 13:28:34 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+23/04/06 13:28:34 INFO SparkContext: Running Spark version 3.3.1
+23/04/06 13:28:34 INFO ResourceUtils: ==============================================================
+23/04/06 13:28:34 INFO ResourceUtils: No custom resources configured for spark.driver.
+23/04/06 13:28:34 INFO ResourceUtils: ==============================================================
+23/04/06 13:28:34 INFO SparkContext: Submitted application: TeraValidate
+23/04/06 13:28:34 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memoryOverhead -> name: memoryOverhead, amount: 3000, script: , vendor: , cores -> name: cores, amount: 4, script: , vendor: , memory -> name: memory, amount: 13000, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+23/04/06 13:28:34 INFO ResourceProfile: Limiting resource is cpus at 4 tasks per executor
+23/04/06 13:28:34 INFO ResourceProfileManager: Added ResourceProfile id: 0
+23/04/06 13:28:34 INFO SecurityManager: Changing view acls to: root,pezhman.nasirifard
+23/04/06 13:28:34 INFO SecurityManager: Changing modify acls to: root,pezhman.nasirifard
+23/04/06 13:28:34 INFO SecurityManager: Changing view acls groups to: 
+23/04/06 13:28:34 INFO SecurityManager: Changing modify acls groups to: 
+23/04/06 13:28:34 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(root, pezhman.nasirifard); groups with view permissions: Set(); users  with modify permissions: Set(root, pezhman.nasirifard); groups with modify permissions: Set()
+23/04/06 13:28:35 INFO Utils: Successfully started service 'sparkDriver' on port 7078.
+23/04/06 13:28:35 INFO SparkEnv: Registering MapOutputTracker
+23/04/06 13:28:35 INFO SparkEnv: Registering BlockManagerMaster
+23/04/06 13:28:35 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+23/04/06 13:28:35 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+23/04/06 13:28:35 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+23/04/06 13:28:35 INFO DiskBlockManager: Created local directory at /var/data/spark-378c98c2-5241-4f13-b835-a4d43e1b29c3/blockmgr-42f05c93-7efb-484e-a37c-c4fa82374130
+23/04/06 13:28:35 INFO MemoryStore: MemoryStore started with capacity 7.4 GiB
+23/04/06 13:28:35 INFO SparkEnv: Registering OutputCommitCoordinator
+23/04/06 13:28:35 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+23/04/06 13:28:35 INFO SparkContext: Added JAR local:///opt/spark/jars/spark-terasort-1.2-SNAPSHOT.jar at file:/opt/spark/jars/spark-terasort-1.2-SNAPSHOT.jar with timestamp 1680787714655
+23/04/06 13:28:35 INFO SparkContext: The JAR local:///opt/spark/jars/spark-terasort-1.2-SNAPSHOT.jar at file:/opt/spark/jars/spark-terasort-1.2-SNAPSHOT.jar has been added already. Overwriting of added jar is not supported in the current version.
+23/04/06 13:28:35 INFO SparkKubernetesClientFactory: Auto-configuring K8S client using current context from users K8S config file
+23/04/06 13:28:36 INFO ExecutorPodsAllocator: Going to request 4 executors from Kubernetes for ResourceProfile Id: 0, target: 4, known: 0, sharedSlotFromPendingPods: 2147483647.
+23/04/06 13:28:36 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+23/04/06 13:28:36 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 7079.
+23/04/06 13:28:36 INFO NettyBlockTransferService: Server created on spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:7079
+23/04/06 13:28:36 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+23/04/06 13:28:36 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc, 7079, None)
+23/04/06 13:28:36 INFO BlockManagerMasterEndpoint: Registering block manager spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:7079 with 7.4 GiB RAM, BlockManagerId(driver, spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc, 7079, None)
+23/04/06 13:28:36 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc, 7079, None)
+23/04/06 13:28:36 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc, 7079, None)
+23/04/06 13:28:36 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+23/04/06 13:28:36 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+23/04/06 13:28:36 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+23/04/06 13:28:40 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.1.178:34066) with ID 2,  ResourceProfileId 0
+23/04/06 13:28:40 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.1.178:40727 with 7.4 GiB RAM, BlockManagerId(2, 10.244.1.178, 40727, None)
+23/04/06 13:28:40 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.11.198:34032) with ID 3,  ResourceProfileId 0
+23/04/06 13:28:40 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.11.198:39245 with 7.4 GiB RAM, BlockManagerId(3, 10.244.11.198, 39245, None)
+23/04/06 13:28:41 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.4.30:44372) with ID 4,  ResourceProfileId 0
+23/04/06 13:28:41 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.4.30:42815 with 7.4 GiB RAM, BlockManagerId(4, 10.244.4.30, 42815, None)
+23/04/06 13:28:41 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.10.153:45588) with ID 1,  ResourceProfileId 0
+23/04/06 13:28:41 INFO KubernetesClusterSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.8
+23/04/06 13:28:41 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.10.153:39749 with 7.4 GiB RAM, BlockManagerId(1, 10.244.10.153, 39749, None)
+23/04/06 13:28:41 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+23/04/06 13:28:41 INFO MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+23/04/06 13:28:41 INFO MetricsSystemImpl: s3a-file-system metrics system started
+23/04/06 13:28:42 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 293.5 KiB, free 7.4 GiB)
+23/04/06 13:28:42 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 32.7 KiB, free 7.4 GiB)
+23/04/06 13:28:42 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:7079 (size: 32.7 KiB, free: 7.4 GiB)
+23/04/06 13:28:42 INFO SparkContext: Created broadcast 0 from newAPIHadoopFile at TeraValidate.scala:60
+23/04/06 13:28:42 INFO FileInputFormat: Total input files to process : 32
+23/04/06 13:28:43 INFO SparkContext: Starting job: collect at TeraValidate.scala:98
+23/04/06 13:28:43 INFO DAGScheduler: Got job 0 (collect at TeraValidate.scala:98) with 32 output partitions
+23/04/06 13:28:43 INFO DAGScheduler: Final stage: ResultStage 0 (collect at TeraValidate.scala:98)
+23/04/06 13:28:43 INFO DAGScheduler: Parents of final stage: List()
+23/04/06 13:28:43 INFO DAGScheduler: Missing parents: List()
+23/04/06 13:28:43 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at mapPartitions at TeraValidate.scala:66), which has no missing parents
+23/04/06 13:28:43 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 4.6 KiB, free 7.4 GiB)
+23/04/06 13:28:43 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 2.6 KiB, free 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:7079 (size: 2.6 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:1513
+23/04/06 13:28:43 INFO DAGScheduler: Submitting 32 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at mapPartitions at TeraValidate.scala:66) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+23/04/06 13:28:43 INFO TaskSchedulerImpl: Adding task set 0.0 with 32 tasks resource profile 0
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (10.244.11.198, executor 3, partition 0, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1) (10.244.4.30, executor 4, partition 1, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 2.0 in stage 0.0 (TID 2) (10.244.1.178, executor 2, partition 2, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 3.0 in stage 0.0 (TID 3) (10.244.10.153, executor 1, partition 3, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 4.0 in stage 0.0 (TID 4) (10.244.11.198, executor 3, partition 4, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 5.0 in stage 0.0 (TID 5) (10.244.4.30, executor 4, partition 5, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 6.0 in stage 0.0 (TID 6) (10.244.1.178, executor 2, partition 6, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 7.0 in stage 0.0 (TID 7) (10.244.10.153, executor 1, partition 7, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 8.0 in stage 0.0 (TID 8) (10.244.11.198, executor 3, partition 8, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 9.0 in stage 0.0 (TID 9) (10.244.4.30, executor 4, partition 9, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 10.0 in stage 0.0 (TID 10) (10.244.1.178, executor 2, partition 10, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 11.0 in stage 0.0 (TID 11) (10.244.10.153, executor 1, partition 11, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 12.0 in stage 0.0 (TID 12) (10.244.11.198, executor 3, partition 12, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 13.0 in stage 0.0 (TID 13) (10.244.4.30, executor 4, partition 13, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 14.0 in stage 0.0 (TID 14) (10.244.1.178, executor 2, partition 14, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO TaskSetManager: Starting task 15.0 in stage 0.0 (TID 15) (10.244.10.153, executor 1, partition 15, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 10.244.11.198:39245 (size: 2.6 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 10.244.10.153:39749 (size: 2.6 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 10.244.1.178:40727 (size: 2.6 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 10.244.4.30:42815 (size: 2.6 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.11.198:39245 (size: 32.7 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.10.153:39749 (size: 32.7 KiB, free: 7.4 GiB)
+23/04/06 13:28:43 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.1.178:40727 (size: 32.7 KiB, free: 7.4 GiB)
+23/04/06 13:28:44 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.4.30:42815 (size: 32.7 KiB, free: 7.4 GiB)
+23/04/06 13:28:45 INFO TaskSetManager: Starting task 16.0 in stage 0.0 (TID 16) (10.244.11.198, executor 3, partition 16, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:45 INFO TaskSetManager: Finished task 12.0 in stage 0.0 (TID 12) in 2352 ms on 10.244.11.198 (executor 3) (1/32)
+23/04/06 13:28:45 INFO TaskSetManager: Starting task 17.0 in stage 0.0 (TID 17) (10.244.11.198, executor 3, partition 17, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:45 INFO TaskSetManager: Finished task 4.0 in stage 0.0 (TID 4) in 2395 ms on 10.244.11.198 (executor 3) (2/32)
+23/04/06 13:28:45 INFO TaskSetManager: Starting task 18.0 in stage 0.0 (TID 18) (10.244.11.198, executor 3, partition 18, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:45 INFO TaskSetManager: Finished task 8.0 in stage 0.0 (TID 8) in 2460 ms on 10.244.11.198 (executor 3) (3/32)
+23/04/06 13:28:45 INFO TaskSetManager: Starting task 19.0 in stage 0.0 (TID 19) (10.244.11.198, executor 3, partition 19, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:45 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 2776 ms on 10.244.11.198 (executor 3) (4/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 20.0 in stage 0.0 (TID 20) (10.244.11.198, executor 3, partition 20, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 17.0 in stage 0.0 (TID 17) in 560 ms on 10.244.11.198 (executor 3) (5/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 21.0 in stage 0.0 (TID 21) (10.244.11.198, executor 3, partition 21, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 16.0 in stage 0.0 (TID 16) in 643 ms on 10.244.11.198 (executor 3) (6/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 22.0 in stage 0.0 (TID 22) (10.244.11.198, executor 3, partition 22, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 18.0 in stage 0.0 (TID 18) in 527 ms on 10.244.11.198 (executor 3) (7/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 23.0 in stage 0.0 (TID 23) (10.244.10.153, executor 1, partition 23, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 3.0 in stage 0.0 (TID 3) in 3007 ms on 10.244.10.153 (executor 1) (8/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 24.0 in stage 0.0 (TID 24) (10.244.1.178, executor 2, partition 24, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 2.0 in stage 0.0 (TID 2) in 3063 ms on 10.244.1.178 (executor 2) (9/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 25.0 in stage 0.0 (TID 25) (10.244.1.178, executor 2, partition 25, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 6.0 in stage 0.0 (TID 6) in 3062 ms on 10.244.1.178 (executor 2) (10/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 26.0 in stage 0.0 (TID 26) (10.244.10.153, executor 1, partition 26, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 15.0 in stage 0.0 (TID 15) in 3068 ms on 10.244.10.153 (executor 1) (11/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 27.0 in stage 0.0 (TID 27) (10.244.11.198, executor 3, partition 27, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 19.0 in stage 0.0 (TID 19) in 344 ms on 10.244.11.198 (executor 3) (12/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 28.0 in stage 0.0 (TID 28) (10.244.1.178, executor 2, partition 28, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 14.0 in stage 0.0 (TID 14) in 3128 ms on 10.244.1.178 (executor 2) (13/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 29.0 in stage 0.0 (TID 29) (10.244.10.153, executor 1, partition 29, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 11.0 in stage 0.0 (TID 11) in 3172 ms on 10.244.10.153 (executor 1) (14/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 30.0 in stage 0.0 (TID 30) (10.244.11.198, executor 3, partition 30, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 20.0 in stage 0.0 (TID 20) in 273 ms on 10.244.11.198 (executor 3) (15/32)
+23/04/06 13:28:46 INFO TaskSetManager: Starting task 31.0 in stage 0.0 (TID 31) (10.244.11.198, executor 3, partition 31, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 21.0 in stage 0.0 (TID 21) in 282 ms on 10.244.11.198 (executor 3) (16/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 7.0 in stage 0.0 (TID 7) in 3261 ms on 10.244.10.153 (executor 1) (17/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 10.0 in stage 0.0 (TID 10) in 3260 ms on 10.244.1.178 (executor 2) (18/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 22.0 in stage 0.0 (TID 22) in 297 ms on 10.244.11.198 (executor 3) (19/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 27.0 in stage 0.0 (TID 27) in 308 ms on 10.244.11.198 (executor 3) (20/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 30.0 in stage 0.0 (TID 30) in 253 ms on 10.244.11.198 (executor 3) (21/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 31.0 in stage 0.0 (TID 31) in 252 ms on 10.244.11.198 (executor 3) (22/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 24.0 in stage 0.0 (TID 24) in 560 ms on 10.244.1.178 (executor 2) (23/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 25.0 in stage 0.0 (TID 25) in 568 ms on 10.244.1.178 (executor 2) (24/32)
+23/04/06 13:28:46 INFO TaskSetManager: Finished task 28.0 in stage 0.0 (TID 28) in 518 ms on 10.244.1.178 (executor 2) (25/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 26.0 in stage 0.0 (TID 26) in 872 ms on 10.244.10.153 (executor 1) (26/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 3955 ms on 10.244.4.30 (executor 4) (27/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 5.0 in stage 0.0 (TID 5) in 3955 ms on 10.244.4.30 (executor 4) (28/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 23.0 in stage 0.0 (TID 23) in 977 ms on 10.244.10.153 (executor 1) (29/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 29.0 in stage 0.0 (TID 29) in 842 ms on 10.244.10.153 (executor 1) (30/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 13.0 in stage 0.0 (TID 13) in 4041 ms on 10.244.4.30 (executor 4) (31/32)
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 9.0 in stage 0.0 (TID 9) in 4056 ms on 10.244.4.30 (executor 4) (32/32)
+23/04/06 13:28:47 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+23/04/06 13:28:47 INFO DAGScheduler: ResultStage 0 (collect at TeraValidate.scala:98) finished in 4.137 s
+23/04/06 13:28:47 INFO DAGScheduler: Job 0 is finished. Cancelling potential speculative or zombie tasks for this job
+23/04/06 13:28:47 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage finished
+23/04/06 13:28:47 INFO DAGScheduler: Job 0 finished: collect at TeraValidate.scala:98, took 4.184081 s
+23/04/06 13:28:47 INFO SparkContext: Starting job: count at TeraValidate.scala:101
+23/04/06 13:28:47 INFO DAGScheduler: Got job 1 (count at TeraValidate.scala:101) with 32 output partitions
+23/04/06 13:28:47 INFO DAGScheduler: Final stage: ResultStage 1 (count at TeraValidate.scala:101)
+23/04/06 13:28:47 INFO DAGScheduler: Parents of final stage: List()
+23/04/06 13:28:47 INFO DAGScheduler: Missing parents: List()
+23/04/06 13:28:47 INFO DAGScheduler: Submitting ResultStage 1 (s3a://pezhman-cloudstars/output/terasort/1g--2023-04-06T132742Z-s3shuffle-geds NewHadoopRDD[0] at newAPIHadoopFile at TeraValidate.scala:60), which has no missing parents
+23/04/06 13:28:47 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 3.5 KiB, free 7.4 GiB)
+23/04/06 13:28:47 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 2.1 KiB, free 7.4 GiB)
+23/04/06 13:28:47 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:7079 (size: 2.1 KiB, free: 7.4 GiB)
+23/04/06 13:28:47 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1513
+23/04/06 13:28:47 INFO DAGScheduler: Submitting 32 missing tasks from ResultStage 1 (s3a://pezhman-cloudstars/output/terasort/1g--2023-04-06T132742Z-s3shuffle-geds NewHadoopRDD[0] at newAPIHadoopFile at TeraValidate.scala:60) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+23/04/06 13:28:47 INFO TaskSchedulerImpl: Adding task set 1.0 with 32 tasks resource profile 0
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 32) (10.244.10.153, executor 1, partition 0, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 1.0 in stage 1.0 (TID 33) (10.244.4.30, executor 4, partition 1, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 2.0 in stage 1.0 (TID 34) (10.244.11.198, executor 3, partition 2, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 3.0 in stage 1.0 (TID 35) (10.244.1.178, executor 2, partition 3, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 4.0 in stage 1.0 (TID 36) (10.244.10.153, executor 1, partition 4, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 5.0 in stage 1.0 (TID 37) (10.244.4.30, executor 4, partition 5, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 6.0 in stage 1.0 (TID 38) (10.244.11.198, executor 3, partition 6, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 7.0 in stage 1.0 (TID 39) (10.244.1.178, executor 2, partition 7, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 8.0 in stage 1.0 (TID 40) (10.244.10.153, executor 1, partition 8, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 9.0 in stage 1.0 (TID 41) (10.244.4.30, executor 4, partition 9, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 10.0 in stage 1.0 (TID 42) (10.244.11.198, executor 3, partition 10, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 11.0 in stage 1.0 (TID 43) (10.244.1.178, executor 2, partition 11, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 12.0 in stage 1.0 (TID 44) (10.244.10.153, executor 1, partition 12, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 13.0 in stage 1.0 (TID 45) (10.244.4.30, executor 4, partition 13, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 14.0 in stage 1.0 (TID 46) (10.244.11.198, executor 3, partition 14, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 15.0 in stage 1.0 (TID 47) (10.244.1.178, executor 2, partition 15, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 10.244.11.198:39245 (size: 2.1 KiB, free: 7.4 GiB)
+23/04/06 13:28:47 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 10.244.1.178:40727 (size: 2.1 KiB, free: 7.4 GiB)
+23/04/06 13:28:47 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 10.244.4.30:42815 (size: 2.1 KiB, free: 7.4 GiB)
+23/04/06 13:28:47 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 10.244.10.153:39749 (size: 2.1 KiB, free: 7.4 GiB)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 16.0 in stage 1.0 (TID 48) (10.244.11.198, executor 3, partition 16, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 6.0 in stage 1.0 (TID 38) in 333 ms on 10.244.11.198 (executor 3) (1/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 17.0 in stage 1.0 (TID 49) (10.244.11.198, executor 3, partition 17, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 2.0 in stage 1.0 (TID 34) in 339 ms on 10.244.11.198 (executor 3) (2/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 18.0 in stage 1.0 (TID 50) (10.244.11.198, executor 3, partition 18, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 14.0 in stage 1.0 (TID 46) in 352 ms on 10.244.11.198 (executor 3) (3/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 19.0 in stage 1.0 (TID 51) (10.244.11.198, executor 3, partition 19, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 10.0 in stage 1.0 (TID 42) in 359 ms on 10.244.11.198 (executor 3) (4/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 20.0 in stage 1.0 (TID 52) (10.244.1.178, executor 2, partition 20, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 15.0 in stage 1.0 (TID 47) in 421 ms on 10.244.1.178 (executor 2) (5/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 21.0 in stage 1.0 (TID 53) (10.244.1.178, executor 2, partition 21, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 7.0 in stage 1.0 (TID 39) in 466 ms on 10.244.1.178 (executor 2) (6/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 22.0 in stage 1.0 (TID 54) (10.244.1.178, executor 2, partition 22, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 11.0 in stage 1.0 (TID 43) in 520 ms on 10.244.1.178 (executor 2) (7/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 23.0 in stage 1.0 (TID 55) (10.244.1.178, executor 2, partition 23, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 3.0 in stage 1.0 (TID 35) in 552 ms on 10.244.1.178 (executor 2) (8/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 24.0 in stage 1.0 (TID 56) (10.244.4.30, executor 4, partition 24, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 13.0 in stage 1.0 (TID 45) in 679 ms on 10.244.4.30 (executor 4) (9/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 25.0 in stage 1.0 (TID 57) (10.244.11.198, executor 3, partition 25, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 17.0 in stage 1.0 (TID 49) in 352 ms on 10.244.11.198 (executor 3) (10/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 26.0 in stage 1.0 (TID 58) (10.244.10.153, executor 1, partition 26, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 8.0 in stage 1.0 (TID 40) in 687 ms on 10.244.10.153 (executor 1) (11/32)
+23/04/06 13:28:47 INFO TaskSetManager: Starting task 27.0 in stage 1.0 (TID 59) (10.244.10.153, executor 1, partition 27, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:47 INFO TaskSetManager: Finished task 4.0 in stage 1.0 (TID 36) in 717 ms on 10.244.10.153 (executor 1) (12/32)
+23/04/06 13:28:48 INFO TaskSetManager: Starting task 28.0 in stage 1.0 (TID 60) (10.244.4.30, executor 4, partition 28, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 9.0 in stage 1.0 (TID 41) in 725 ms on 10.244.4.30 (executor 4) (13/32)
+23/04/06 13:28:48 INFO TaskSetManager: Starting task 29.0 in stage 1.0 (TID 61) (10.244.10.153, executor 1, partition 29, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 12.0 in stage 1.0 (TID 44) in 732 ms on 10.244.10.153 (executor 1) (14/32)
+23/04/06 13:28:48 INFO TaskSetManager: Starting task 30.0 in stage 1.0 (TID 62) (10.244.10.153, executor 1, partition 30, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 32) in 769 ms on 10.244.10.153 (executor 1) (15/32)
+23/04/06 13:28:48 INFO TaskSetManager: Starting task 31.0 in stage 1.0 (TID 63) (10.244.4.30, executor 4, partition 31, PROCESS_LOCAL, 4621 bytes) taskResourceAssignments Map()
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 5.0 in stage 1.0 (TID 37) in 780 ms on 10.244.4.30 (executor 4) (16/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 19.0 in stage 1.0 (TID 51) in 444 ms on 10.244.11.198 (executor 3) (17/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 18.0 in stage 1.0 (TID 50) in 448 ms on 10.244.11.198 (executor 3) (18/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 16.0 in stage 1.0 (TID 48) in 479 ms on 10.244.11.198 (executor 3) (19/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 1.0 in stage 1.0 (TID 33) in 899 ms on 10.244.4.30 (executor 4) (20/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 20.0 in stage 1.0 (TID 52) in 486 ms on 10.244.1.178 (executor 2) (21/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 25.0 in stage 1.0 (TID 57) in 273 ms on 10.244.11.198 (executor 3) (22/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 21.0 in stage 1.0 (TID 53) in 513 ms on 10.244.1.178 (executor 2) (23/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 22.0 in stage 1.0 (TID 54) in 499 ms on 10.244.1.178 (executor 2) (24/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 23.0 in stage 1.0 (TID 55) in 473 ms on 10.244.1.178 (executor 2) (25/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 26.0 in stage 1.0 (TID 58) in 405 ms on 10.244.10.153 (executor 1) (26/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 29.0 in stage 1.0 (TID 61) in 402 ms on 10.244.10.153 (executor 1) (27/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 27.0 in stage 1.0 (TID 59) in 442 ms on 10.244.10.153 (executor 1) (28/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 30.0 in stage 1.0 (TID 62) in 408 ms on 10.244.10.153 (executor 1) (29/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 31.0 in stage 1.0 (TID 63) in 458 ms on 10.244.4.30 (executor 4) (30/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 24.0 in stage 1.0 (TID 56) in 560 ms on 10.244.4.30 (executor 4) (31/32)
+23/04/06 13:28:48 INFO TaskSetManager: Finished task 28.0 in stage 1.0 (TID 60) in 542 ms on 10.244.4.30 (executor 4) (32/32)
+23/04/06 13:28:48 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+23/04/06 13:28:48 INFO DAGScheduler: ResultStage 1 (count at TeraValidate.scala:101) finished in 1.285 s
+23/04/06 13:28:48 INFO DAGScheduler: Job 1 is finished. Cancelling potential speculative or zombie tasks for this job
+23/04/06 13:28:48 INFO TaskSchedulerImpl: Killing all running tasks in stage 1: Stage finished
+23/04/06 13:28:48 INFO DAGScheduler: Job 1 finished: count at TeraValidate.scala:101, took 1.290558 s
+num records: 10000000
+checksum: 4c48c175ea9cd9
+part 0
+lastMaxArrayBuffer(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+min ArrayBuffer(0, 0, 2, 160, 226, 23, 215, 56, 215, 118)
+max ArrayBuffer(7, 255, 254, 25, 195, 198, 221, 48, 244, 59)
+part 1
+lastMaxArrayBuffer(7, 255, 254, 25, 195, 198, 221, 48, 244, 59)
+min ArrayBuffer(8, 0, 0, 155, 104, 207, 231, 90, 215, 58)
+max ArrayBuffer(15, 255, 249, 148, 135, 38, 194, 9, 160, 100)
+part 2
+lastMaxArrayBuffer(15, 255, 249, 148, 135, 38, 194, 9, 160, 100)
+min ArrayBuffer(16, 0, 0, 207, 147, 185, 222, 95, 220, 153)
+max ArrayBuffer(23, 255, 254, 83, 112, 190, 190, 121, 5, 238)
+part 3
+lastMaxArrayBuffer(23, 255, 254, 83, 112, 190, 190, 121, 5, 238)
+min ArrayBuffer(24, 0, 0, 18, 3, 65, 2, 170, 149, 207)
+max ArrayBuffer(31, 255, 247, 137, 23, 3, 173, 126, 1, 215)
+part 4
+lastMaxArrayBuffer(31, 255, 247, 137, 23, 3, 173, 126, 1, 215)
+min ArrayBuffer(32, 0, 0, 141, 244, 95, 141, 52, 18, 244)
+max ArrayBuffer(39, 255, 255, 8, 73, 86, 235, 144, 134, 83)
+part 5
+lastMaxArrayBuffer(39, 255, 255, 8, 73, 86, 235, 144, 134, 83)
+min ArrayBuffer(40, 0, 0, 98, 240, 224, 21, 112, 161, 30)
+max ArrayBuffer(47, 255, 254, 15, 197, 109, 105, 157, 88, 166)
+part 6
+lastMaxArrayBuffer(47, 255, 254, 15, 197, 109, 105, 157, 88, 166)
+min ArrayBuffer(48, 0, 0, 111, 73, 35, 134, 107, 41, 199)
+max ArrayBuffer(55, 255, 254, 87, 180, 233, 42, 158, 56, 45)
+part 7
+lastMaxArrayBuffer(55, 255, 254, 87, 180, 233, 42, 158, 56, 45)
+min ArrayBuffer(56, 0, 1, 103, 214, 111, 20, 6, 16, 66)
+max ArrayBuffer(63, 255, 254, 133, 30, 49, 227, 16, 196, 150)
+part 8
+lastMaxArrayBuffer(63, 255, 254, 133, 30, 49, 227, 16, 196, 150)
+min ArrayBuffer(64, 0, 5, 219, 168, 71, 58, 236, 198, 248)
+max ArrayBuffer(71, 255, 255, 109, 83, 154, 79, 116, 147, 8)
+part 9
+lastMaxArrayBuffer(71, 255, 255, 109, 83, 154, 79, 116, 147, 8)
+min ArrayBuffer(72, 0, 0, 22, 59, 12, 107, 19, 239, 229)
+max ArrayBuffer(79, 255, 255, 54, 113, 153, 118, 236, 27, 133)
+part 10
+lastMaxArrayBuffer(79, 255, 255, 54, 113, 153, 118, 236, 27, 133)
+min ArrayBuffer(80, 0, 2, 78, 86, 0, 117, 151, 29, 178)
+max ArrayBuffer(87, 255, 255, 196, 36, 108, 29, 219, 44, 208)
+part 11
+lastMaxArrayBuffer(87, 255, 255, 196, 36, 108, 29, 219, 44, 208)
+min ArrayBuffer(88, 0, 0, 239, 179, 41, 131, 191, 18, 244)
+max ArrayBuffer(95, 255, 255, 23, 150, 24, 68, 35, 39, 174)
+part 12
+lastMaxArrayBuffer(95, 255, 255, 23, 150, 24, 68, 35, 39, 174)
+min ArrayBuffer(96, 0, 2, 96, 188, 58, 25, 234, 181, 183)
+max ArrayBuffer(103, 255, 248, 153, 246, 27, 119, 33, 73, 151)
+part 13
+lastMaxArrayBuffer(103, 255, 248, 153, 246, 27, 119, 33, 73, 151)
+min ArrayBuffer(104, 0, 0, 246, 222, 233, 231, 123, 211, 220)
+max ArrayBuffer(111, 255, 255, 239, 215, 209, 46, 182, 147, 131)
+part 14
+lastMaxArrayBuffer(111, 255, 255, 239, 215, 209, 46, 182, 147, 131)
+min ArrayBuffer(112, 0, 1, 136, 192, 239, 91, 57, 35, 59)
+max ArrayBuffer(119, 255, 255, 12, 55, 74, 225, 73, 246, 154)
+part 15
+lastMaxArrayBuffer(119, 255, 255, 12, 55, 74, 225, 73, 246, 154)
+min ArrayBuffer(120, 0, 2, 105, 49, 234, 62, 23, 242, 73)
+max ArrayBuffer(127, 255, 253, 27, 255, 197, 145, 37, 10, 60)
+part 16
+lastMaxArrayBuffer(127, 255, 253, 27, 255, 197, 145, 37, 10, 60)
+min ArrayBuffer(128, 0, 0, 195, 39, 96, 113, 253, 97, 212)
+max ArrayBuffer(135, 255, 254, 161, 158, 164, 64, 223, 98, 184)
+part 17
+lastMaxArrayBuffer(135, 255, 254, 161, 158, 164, 64, 223, 98, 184)
+min ArrayBuffer(136, 0, 1, 32, 2, 83, 221, 187, 94, 151)
+max ArrayBuffer(143, 255, 255, 112, 146, 64, 9, 198, 25, 21)
+part 18
+lastMaxArrayBuffer(143, 255, 255, 112, 146, 64, 9, 198, 25, 21)
+min ArrayBuffer(144, 0, 3, 104, 243, 116, 67, 157, 92, 178)
+max ArrayBuffer(151, 255, 254, 195, 94, 224, 242, 2, 113, 110)
+part 19
+lastMaxArrayBuffer(151, 255, 254, 195, 94, 224, 242, 2, 113, 110)
+min ArrayBuffer(152, 0, 2, 111, 19, 162, 11, 154, 119, 52)
+max ArrayBuffer(159, 255, 255, 42, 209, 106, 195, 55, 171, 34)
+part 20
+lastMaxArrayBuffer(159, 255, 255, 42, 209, 106, 195, 55, 171, 34)
+min ArrayBuffer(160, 0, 0, 36, 247, 48, 168, 131, 3, 114)
+max ArrayBuffer(167, 255, 254, 121, 68, 131, 113, 148, 69, 78)
+part 21
+lastMaxArrayBuffer(167, 255, 254, 121, 68, 131, 113, 148, 69, 78)
+min ArrayBuffer(168, 0, 2, 8, 221, 33, 41, 199, 201, 119)
+max ArrayBuffer(175, 255, 253, 110, 67, 244, 63, 66, 210, 254)
+part 22
+lastMaxArrayBuffer(175, 255, 253, 110, 67, 244, 63, 66, 210, 254)
+min ArrayBuffer(176, 0, 0, 20, 145, 90, 95, 246, 77, 6)
+max ArrayBuffer(183, 255, 253, 104, 216, 209, 122, 109, 145, 189)
+part 23
+lastMaxArrayBuffer(183, 255, 253, 104, 216, 209, 122, 109, 145, 189)
+min ArrayBuffer(184, 0, 2, 193, 38, 95, 195, 102, 157, 195)
+max ArrayBuffer(191, 255, 255, 115, 30, 85, 146, 213, 16, 209)
+part 24
+lastMaxArrayBuffer(191, 255, 255, 115, 30, 85, 146, 213, 16, 209)
+min ArrayBuffer(192, 0, 0, 225, 156, 36, 52, 217, 87, 196)
+max ArrayBuffer(199, 255, 255, 230, 12, 9, 139, 0, 12, 144)
+part 25
+lastMaxArrayBuffer(199, 255, 255, 230, 12, 9, 139, 0, 12, 144)
+min ArrayBuffer(200, 0, 0, 27, 255, 233, 57, 180, 97, 64)
+max ArrayBuffer(207, 255, 253, 224, 129, 161, 9, 101, 194, 99)
+part 26
+lastMaxArrayBuffer(207, 255, 253, 224, 129, 161, 9, 101, 194, 99)
+min ArrayBuffer(208, 0, 2, 238, 185, 137, 138, 106, 45, 49)
+max ArrayBuffer(215, 255, 251, 7, 127, 109, 159, 148, 191, 190)
+part 27
+lastMaxArrayBuffer(215, 255, 251, 7, 127, 109, 159, 148, 191, 190)
+min ArrayBuffer(216, 0, 0, 236, 140, 170, 246, 189, 43, 100)
+max ArrayBuffer(223, 255, 255, 179, 89, 213, 157, 226, 233, 49)
+part 28
+lastMaxArrayBuffer(223, 255, 255, 179, 89, 213, 157, 226, 233, 49)
+min ArrayBuffer(224, 0, 1, 5, 231, 28, 218, 30, 195, 157)
+max ArrayBuffer(231, 255, 255, 166, 237, 208, 152, 14, 106, 149)
+part 29
+lastMaxArrayBuffer(231, 255, 255, 166, 237, 208, 152, 14, 106, 149)
+min ArrayBuffer(232, 0, 2, 168, 63, 186, 44, 221, 83, 38)
+max ArrayBuffer(239, 255, 253, 49, 241, 206, 3, 98, 79, 158)
+part 30
+lastMaxArrayBuffer(239, 255, 253, 49, 241, 206, 3, 98, 79, 158)
+min ArrayBuffer(240, 0, 3, 197, 198, 150, 130, 60, 101, 124)
+max ArrayBuffer(247, 255, 255, 152, 25, 154, 59, 177, 4, 68)
+part 31
+lastMaxArrayBuffer(247, 255, 255, 152, 25, 154, 59, 177, 4, 68)
+min ArrayBuffer(248, 0, 0, 159, 80, 255, 154, 238, 157, 144)
+max ArrayBuffer(255, 255, 255, 245, 151, 226, 124, 67, 172, 147)
+num records: 10000000
+checksum: 4c48c175ea9cd9
+partitions are properly sorted
+23/04/06 13:28:48 INFO SparkUI: Stopped Spark web UI at http://spark-b09f648756c1252f-driver-svc.pezhman-cloudstars.svc:4040
+23/04/06 13:28:48 INFO KubernetesClusterSchedulerBackend: Shutting down all executors
+23/04/06 13:28:48 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Asking each executor to shut down
+23/04/06 13:28:48 WARN ExecutorPodsWatchSnapshotSource: Kubernetes client has been closed.
+23/04/06 13:28:48 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+23/04/06 13:28:48 INFO MemoryStore: MemoryStore cleared
+23/04/06 13:28:48 INFO BlockManager: BlockManager stopped
+23/04/06 13:28:48 INFO BlockManagerMaster: BlockManagerMaster stopped
+23/04/06 13:28:48 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+23/04/06 13:28:48 INFO SparkContext: Successfully stopped SparkContext
+23/04/06 13:28:48 INFO ShutdownHookManager: Shutdown hook called
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-a4626c5a-ad2e-42d8-9ccd-18736073ba30
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-35d6fc40-ac3f-484f-b7e5-9febb473deae
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /var/data/spark-378c98c2-5241-4f13-b835-a4d43e1b29c3/spark-129000c6-5870-42a2-8987-78c4284dde23
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-c54b36f1-e43e-4293-9f4d-5d2833291b86
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-52e2b003-6ad2-4faa-83ae-0b7e79d358f8
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-9dcfb1d3-e965-4c74-aabc-f12f5d5131d9
+23/04/06 13:28:48 INFO ShutdownHookManager: Deleting directory /tmp/spark-e84e6b7f-b6d8-4c47-b90e-c57618039934
+23/04/06 13:28:48 INFO MetricsSystemImpl: Stopping s3a-file-system metrics system...
+23/04/06 13:28:48 INFO MetricsSystemImpl: s3a-file-system metrics system stopped.
+23/04/06 13:28:48 INFO MetricsSystemImpl: s3a-file-system metrics system shutdown complete.
