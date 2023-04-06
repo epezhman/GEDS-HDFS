@@ -70,7 +70,7 @@ public class GEDSInstance {
                     + " has either an accessKey, secretKey or an endpoint registered. To map the bucket to S3 all variables need to be configured.");
         }
 
-        if (geds.getIsPubSubEnabled() {
+        if (geds.getIsPubSubEnabled()) {
             // creating the PubSub subscription stream for the GEDS client.
             if (geds.subscribeStreamWithThread()) {
                 System.out.println("PubSub subscription stream created successfully.");
