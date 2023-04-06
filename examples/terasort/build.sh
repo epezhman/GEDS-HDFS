@@ -13,6 +13,7 @@ REGISTRY="${REGISTRY:-zac32.zurich.ibm.com}"
 PREFIX="${PREFIX:-${USER}}"
 
 IMAGE="${REGISTRY}/${PREFIX}/spark-terasort:latest"
-docker build --no-cache -t "${IMAGE}" .
-#docker build -t "${IMAGE}" .
+#docker build --no-cache -t "${IMAGE}" .
+#docker build --no-cache --target geds-hdfs-builder -t "${IMAGE}" .
+docker build -t "${IMAGE}" .
 docker push "${IMAGE}"
