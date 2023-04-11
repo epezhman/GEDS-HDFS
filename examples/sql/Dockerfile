@@ -73,8 +73,8 @@ RUN cd "${SPARK_HOME}/jars/" \
 COPY --from=sql-builder /sql-benchmarks/target/sql-benchmarks-1.0.jar "${SPARK_HOME}/jars/"
 
 # GEDS
-COPY --from=geds-hdfs-builder /usr/local/geds "/usr/local/"
-COPY --from=geds-hdfs-builder /usr/local/geds/java/geds.jar "${SPARK_HOME}/jars/"
+COPY --from=zac32.zurich.ibm.com/pezhman.nasirifard/geds-build_debian11.5:latest /usr/local/opt/geds "/usr/local/"
+COPY --from=zac32.zurich.ibm.com/pezhman.nasirifard/geds-build_debian11.5:latest /usr/local/opt/geds/java/geds.jar "${SPARK_HOME}/jars/"
 
 # GEDS-HDFS
 COPY --from=geds-hdfs-builder /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4-geds1.1_SNAPSHOT.jar "${SPARK_HOME}/jars/"

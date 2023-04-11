@@ -125,8 +125,7 @@ public class GEDSHadoopFileSystem extends FileSystem {
         }
         GEDSFileStatus[] st;
         if (geds.getIsPubSubEnabled()) {
-            st = geds.listAsFolderFromCacheOnly(bucket, path);
-//             st = geds.listAsFolder(bucket, path);
+            st = geds.listAsFolderFromCache(bucket, path);
         } else {
             st = geds.listAsFolder(bucket, path);
         }
