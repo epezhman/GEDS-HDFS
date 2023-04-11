@@ -82,3 +82,5 @@ COPY --from=geds-hdfs-builder /GEDS-HDFS/target/scala-2.12/geds-hdfs_hadoop3.3.4
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/java
 
 USER ${SPARK_USER}
+
+# kubectl get pods -o jsonpath="{range .items[*]}{.metadata.namespace}{'\t'}{.metadata.name}{'\n'}{end}" | while read namespace pod; do echo "Namespace: $namespace, Pod: $pod"; kubectl logs -n $namespace $pod --follow >> logs.txt 2>&1 & done
