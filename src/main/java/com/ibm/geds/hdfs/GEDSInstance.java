@@ -74,7 +74,8 @@ public class GEDSInstance {
 
         if (geds.getIsPubSubEnabled()) {
             // creating the PubSub subscription stream for the GEDS client.
-            if (geds.subscribeStreamWithThread()) {
+            geds.stopSubscribeStreamWithThread();
+            if (geds.subscribeStreamWithThread())stopSubscribeStreamWithThread {
                 System.out.println("PubSub subscription stream created successfully.");
             } else {
                 System.out.println("PubSub subscription could not be created.");
