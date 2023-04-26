@@ -29,6 +29,14 @@ public class GEDSInputStream extends FSInputStream {
         this.tmpbuffer = ByteBuffer.allocate(8);
     }
 
+    public String metadata() throws IOException {
+        return file.metadata();
+    }
+
+    public byte[] metadataAsByteArray() throws IOException {
+        return file.metadataAsByteArray();
+    }
+
     private long position = 0;
     private ByteBuffer tmpbuffer;
 
@@ -225,11 +233,15 @@ public class GEDSInputStream extends FSInputStream {
         }
     }
 
-//     public void readFully(long position, ByteBuffer buffer) throws IOException {
-//         int expected = buffer.remaining();
-//         int len = file.read(position, buffer);
-//         if (len != expected) {
-//             throw new EOFException("Unable to read length " + buffer.length + " at position " + position + ".");
-//         }
-//     }
+    public void readFully(long position, ByteBuffer buffer) throws IOException {
+        int expected = buffer.remaining();
+        readFully(position, buffer, expected);
+    }
+
+    public void readFully(long position, ByteBuffer buffer, int length) throws IOException {
+        int len = file.read(position, buffer);
+        if (len != length) {
+            throw new EOFException("Unable to read length " + length + " at position " + position + ".");
+        }
+    }
 }
