@@ -18,6 +18,6 @@ public class Constants {
     public static final String AVAILABLE_LOCAL_MEMORY = "available_local_memory";
     public static final String IO_THREAD_POOL_SIZE = "io_thread_pool_size";
 
-    public static final String PUBSUB_ENABLED = "pubsub_enabled";
+    public static final String PUB_SUB_ENABLED = "pub_sub_enabled";
 
 }
