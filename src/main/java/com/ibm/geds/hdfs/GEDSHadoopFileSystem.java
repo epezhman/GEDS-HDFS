@@ -42,7 +42,7 @@ public class GEDSHadoopFileSystem extends FileSystem {
         gedsConfig = GEDSInstance.getConfig(conf);
         geds = GEDSInstance.initialize(bucket, conf);
 
-        if (geds.getIsPubSubEnabled()) {
+        if (conf.get(Constants.GEDS_PREFIX + Constants.PUBSUB_ENABLED, "false").equalsIgnoreCase("true")) {
             // Subscribing for a bucket.
             if (geds.subscribe(bucket, "", 1)) {
                 System.out.println("Created a subscription for bucket:" + bucket);
@@ -124,11 +124,12 @@ public class GEDSHadoopFileSystem extends FileSystem {
             path = path + "/";
         }
         GEDSFileStatus[] st;
-        if (geds.getIsPubSubEnabled()) {
-            st = geds.listAsFolderFromCache(bucket, path);
-        } else {
-            st = geds.listAsFolder(bucket, path);
-        }
+//         if (geds.getIsPubSubEnabled()) {
+//             st = geds.listAsFolderFromCache(bucket, path);
+//         } else {
+//             st = geds.listAsFolder(bucket, path);
+//         }
+        st = geds.listAsFolder(bucket, path);
         FileStatus[] response = new FileStatus[st.length];
         for (int i = 0; i < st.length; i++) {
             GEDSFileStatus s = st[i];
