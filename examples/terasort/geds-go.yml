@@ -17,7 +17,7 @@ spec:
       - name: GEDS_PUBSUB_MDS_ENABLED
         value: "true"
       - name: GEDS_PERSISTENT_STORAGE_MDS_ENABLED
-        value: "true"
+        value: "false"
     resources:
       requests:
         memory: "16G"

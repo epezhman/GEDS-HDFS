@@ -5,7 +5,7 @@
 #
 
 # Download completed logs.
-while true; do
+#while true; do
     date
     PODS=$(kubectl get pods | grep "Completed" | awk '{print $1}' | grep "\-driver")
     for pod in $PODS; do
@@ -21,5 +21,5 @@ while true; do
 
     wait
 
-    sleep 100
-done
+    sleep 60
+#done

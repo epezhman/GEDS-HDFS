@@ -20,12 +20,20 @@ rerunServices(){
 }
 
 experiments(){
-     for BENCHMARK in  sql sql-go sql-go-pubsub; do
-       rerunServices
-       echo "running:"
-       echo ./$BENCHMARK/run_tpcds.sh
-       USE_GEDS_SHUFFLE=1 ./$BENCHMARK/run_tpcds.sh
-     done
+#     for BENCHMARK in  sql sql-go sql-go-pubsub; do
+#       rerunServices
+#       echo "running:"
+#       echo ./$BENCHMARK/run_tpcds.sh
+#       USE_GEDS_SHUFFLE=1 ./$BENCHMARK/run_tpcds.sh
+#       ./download_logs.sh
+#     done
+      for BENCHMARK in   sql-go sql-go-pubsub; do
+        rerunServices
+        echo "running:"
+        echo ./$BENCHMARK/run_tpcds.sh
+        USE_GEDS_SHUFFLE=1 ./$BENCHMARK/run_tpcds.sh
+        ./download_logs.sh
+      done
 }
 
 experiments
